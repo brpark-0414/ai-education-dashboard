@@ -143,7 +143,6 @@
   }
   .analyze-btn:hover{opacity:.9;}
   .analyze-btn:disabled{opacity:.6;cursor:default;}
-  .ai-error{font-size:12px;color:var(--bad);background:#FFF2F0;border:1px solid #FFD9D4;border-radius:8px;padding:8px 10px;margin-bottom:12px;}
   .ai-block{margin-bottom:18px;}
   .ai-block:last-child{margin-bottom:6px;}
   .ai-block h3{font-size:13.5px;margin:0 0 7px;font-weight:800;}
@@ -279,7 +278,7 @@
         </ul>
       </div>
     </div>
-    <p class="ai-note" id="aiNote">이 요약은 2026-08-19 기준 데이터로 작성된 스냅샷입니다. 위 <b>[지금 데이터로 분석하기]</b> 버튼을 누르면 현재 데이터로 새로 분석합니다 (Claude.ai에서 이 파일을 열람 중일 때만 동작하며, 그 외 환경에서는 이 스냅샷이 표시됩니다).</p>
+    <p class="ai-note" id="aiNote">이 요약은 2026-08-19 기준 데이터로 작성된 스냅샷입니다. 위 버튼을 누르면 현재 데이터로 새로 분석합니다.</p>
   </div>
 
   <footer>[인재개발팀] AI 심화 교육 만족도 조사(응답) 원본 데이터 기반 · 자동 생성 대시보드</footer>
@@ -717,8 +716,6 @@ analyzeBtn.addEventListener('click', async ()=>{
   analyzeBtn.disabled = true;
   const originalLabel = analyzeBtn.textContent;
   analyzeBtn.textContent = '분석 중...';
-  const existingError = aiSummaryBody.querySelector('.ai-error');
-  if(existingError) existingError.remove();
 
   try{
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -739,15 +736,13 @@ analyzeBtn.addEventListener('click', async ()=>{
     renderAiSummary(parsed);
     aiNote.innerHTML = `방금 현재 데이터로 새로 분석했습니다 (${new Date().toLocaleString('ko-KR')}). 다시 누르면 최신 데이터로 재분석합니다.`;
   }catch(err){
-    const errDiv = document.createElement('div');
-    errDiv.className = 'ai-error';
-    errDiv.textContent = '실시간 분석을 사용할 수 없습니다. 이 버튼은 Claude.ai에서 이 파일을 미리보기로 열람 중일 때만 동작하며, 다운로드하여 열거나 다른 환경에서는 아래 스냅샷 요약이 표시됩니다.';
-    aiSummaryBody.prepend(errDiv);
+    // 실패 시 별도 안내 문구 없이 조용히 원래 상태로 되돌립니다.
   }finally{
     analyzeBtn.disabled = false;
     analyzeBtn.textContent = originalLabel;
   }
 });
+
 </script>
 </body>
 </html>
