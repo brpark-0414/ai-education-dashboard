@@ -1,39 +1,34 @@
 # 교육 만족도 대시보드
 
-첫 화면에서 **현재 진행 중인 교육**을 고르면, 그 교육의 만족도 대시보드가 열립니다. (정적 사이트 — GitHub Pages에 그대로 올리면 됩니다)
+첫 화면에서 **현재 진행 중인 교육**을 고르면 그 교육의 만족도 대시보드가 열립니다. (정적 사이트 — GitHub Pages)
 
-## 구성
+## 공개 화면 vs 관리자 화면
 
-| 파일 | 역할 |
-|---|---|
-| `index.html`, `app.js`, `styles.css` | 화면(교육 목록 + 교육별 대시보드) |
-| `data/courses.js` | **교육 목록**. `status: 'active'`이면 "현재 진행 중인 교육", 그 외는 "지난 교육" |
-| `data/leader.js`, `data/advanced.js` | 응답 데이터 스냅샷 |
-| `apps-script/Code.gs` | 시트 → JSON 웹 앱 (라이브 연동용) |
-| `vendor/chart.umd.min.js` | Chart.js (외부 CDN 불필요) |
+| | 공개 `#/leader` | 관리자 `#/leader/admin` |
+|---|---|---|
+| 이메일·이름 | 받지도 표시하지도 않음 | 표시 (비밀번호 필요) |
+| 개인별 추이, 상·하위 5명 | 없음 | 있음 |
+| 주관식 의견 | 식별 가능성이 있거나(Claude가 검사) 응답 5건 미만 회차는 숨김 | 전체 원문 + 작성자 |
+| AI 요약 | 개인을 지칭하지 않는 요약 | + 참석자별 반응(담당자 참고용) |
 
-주소: `…/index.html#/leader`, `…/index.html#/advanced` 처럼 교육별 링크를 바로 공유할 수 있습니다.
+개인 식별 정보는 **서버(Apps Script)가 걸러서** 내려줍니다. 브라우저 코드나 GitHub 저장소에는 응답 원본이 없습니다.
+(AI 심화 교육은 이름·이메일을 제거한 정적 스냅샷 `data/advanced.js`를 사용합니다.)
 
-## 데이터 최신화 (AI 리더 교육)
+## Apps Script 설정 (한 번만)
 
-시트(`[인재개발팀] AI 리더 교육 만족도 조사(응답)`)는 비공개라서 사이트가 직접 읽을 수 없습니다. 아래 한 번만 설정하면 화면의 **🔄 최신 데이터 가져오기** 버튼이 활성화됩니다.
+1. 응답 시트 → 확장 프로그램 → Apps Script → `apps-script/Code.gs` 전체 붙여넣기 → 저장
+2. 프로젝트 설정(⚙) → **스크립트 속성**에 두 개 추가
+   - `ANTHROPIC_API_KEY` : Anthropic API 키
+   - `ADMIN_TOKEN` : 관리자 비밀번호 (길고 추측하기 어려운 문자열)
+3. 편집기에서 함수 `runAnalysisNow` 실행 → 권한 승인 → 로그에 "분석 완료" 확인
+4. 배포 → **배포 관리 → 기존 배포 편집 → 버전: 새 버전** (URL이 바뀌지 않음) 
 
-1. 응답 시트 → 확장 프로그램 → Apps Script → `apps-script/Code.gs` 붙여넣기
-2. 배포 → 새 배포 → 웹 앱 (실행: 나 / 액세스: 모든 사용자)
-3. 발급된 `…/exec` URL을 `data/courses.js`의 `leader.apiUrl`에 입력
-
-> 웹 앱 URL을 아는 사람은 응답 데이터(이메일 ID 포함)를 볼 수 있으니 공개 범위에 유의하세요.
+Claude 분석은 새 응답이 있을 때만, 최소 10분 간격으로 실행되고 결과는 스크립트 속성에 캐시됩니다.
+방문자가 많아도 API 호출 비용이 늘지 않습니다.
 
 ## 새 교육 추가
 
-1. `data/<이름>.js` 에 `window.XXX_RAW = [...]` 형태로 응답 데이터 작성 (필드: `session, name, email, q1~q5, avg, help, improve`)
-2. `index.html`에 `<script src="data/<이름>.js">` 추가
-3. `data/courses.js`에 항목 추가 (`dataVar`에 `XXX_RAW` 지정)
+- 실시간: `data/courses.js`에 항목 추가하고 `apiUrl`에 해당 시트의 Apps Script URL 입력
+- 스냅샷: `data/<이름>.js`에 `window.XXX_RAW = [...]`(필드: `session, q1~q5, avg, help, improve`)를 두고 `dataVar` 지정. **이름·이메일은 넣지 마세요.**
 
 회차명이 `9/8 (화) A조 1회` 형태이면 조(A/B) 필터가 자동으로 생깁니다.
-
-## 로컬 확인
-
-```bash
-python -m http.server 8765
-```

@@ -158,3 +158,18 @@
   .chip{font-family:inherit;font-size:12.5px;font-weight:700;padding:6px 14px;border-radius:99px;border:1px solid var(--line);background:#fff;color:var(--sub);cursor:pointer;}
   .chip.on{background:var(--orange);border-color:var(--orange);color:#fff;}
   .empty-note{font-size:13px;color:var(--sub);padding:18px 0;}
+
+/* ---- 관리자 / 주제 분석 ---- */
+  .admin-banner{background:#FFF7E6;border:1px solid #FFE0A3;color:#8A5A00;border-radius:12px;padding:10px 14px;font-size:12.5px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+  .text-input{width:100%;font-family:inherit;font-size:14px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;outline:none;}
+  .text-input:focus{border-color:var(--orange);}
+  .select-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .topic-list{display:flex;flex-direction:column;gap:6px;}
+  .topic-row{display:grid;grid-template-columns:minmax(110px,1.2fr) 2fr 28px;align-items:center;gap:10px;background:none;border:none;font-family:inherit;font-size:12.5px;text-align:left;padding:5px 6px;border-radius:8px;cursor:pointer;color:var(--ink);}
+  .topic-row:hover{background:#F6F6F4;}
+  .topic-bar{display:block;height:8px;background:#F0F0EE;border-radius:99px;overflow:hidden;}
+  .topic-bar i{display:block;height:100%;border-radius:99px;}
+  .topic-row.good .topic-bar i{background:var(--good);}
+  .topic-row.bad .topic-bar i{background:var(--orange);}
+  .topic-n{font-weight:800;text-align:right;}
+  .sess{color:var(--sub);}
