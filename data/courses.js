@@ -7,12 +7,12 @@ window.COURSES = [
     "tagline": "Claude Skill · 바이브코딩 · 디자인/데이터 활용 실습",
     "eyebrow": "인재개발팀 · AI 리더 교육",
     "status": "active",
-    "dataVar": null,
-    "apiUrl": "https://script.google.com/macros/s/AKfycbxpt0Y7kFySoD_oX64ZcOE6TMAVvkYGnrZ-16LDxUhcPVtMmngMSHsqWMDrF5EmOcRI/exec",
-    "upcoming": [
-      "10/2 (금) B조 3회"
-    ],
-    "summary": null
+    "dataVar": "LEADER_RAW",
+    "apiUrl": "",
+    "upcoming": [],
+    "summary": "<div class=\"ai-block\">\n        <h3>설문조사 전반적인 의견</h3>\n        <p>6개 회차 전체 평균 만족도(Q5)는 4.6점(5점 만점)으로 높은 편입니다. 조별로는 B조(9/11·9/18·10/2)가 4.9~5.0점으로 사실상 만점 수준인 반면, A조는 1회 4.6점 → 2회(9/22) 4.3점 → 3회(9/29) 4.3점으로 낮아졌습니다. 9/22 회차는 난이도 적절성(Q4)이 3.9점으로 전 문항 중 가장 낮았고, 9/29 회차는 시간/일정 운영(Q2)이 4.1점으로 낮았습니다. 마지막 회차인 10/2 B조 3회는 4.9점으로 높은 만족도를 유지했지만, 내용이 방대해 시간이 부족하다는 의견이 있었습니다.</p>\n      </div>\n      <div class=\"ai-block\">\n        <h3>다음 교육에 반영하면 좋을 점</h3>\n        <ul>\n          <li>개선 요청 중 가장 많은 주제는 시간·일정 운영(6건)이며, 실습 시간 확대(3건)와 진행 속도(3건) 의견이 뒤를 이었습니다.</li>\n          <li>진행 속도에 대한 의견이 엇갈립니다(“더 빠르게” vs “조금 천천히”). 기본 트랙과 심화 과제를 나눠 수준별로 진행하는 방식을 검토</li>\n          <li>Claude 계정·Skill 등록 여부 등 실습 환경을 사전에 통일하고, 설치·라이선스 이슈는 사전 안내</li>\n          <li>보안·권한 가이드(먼데이·사내 자료 사용 범위, GitHub 연동 권한)를 별도 자료로 제공</li>\n          <li>카스피 실습은 실제 필요한 데이터가 카스피에 있는지 사전에 확인하고 과제를 구성</li>\n          <li>강의 자료를 사후에 혼자 봐도 따라 할 수 있게 정리하고, 주 1회 진행이라 앞 내용을 잊는다는 의견에 대비한 복습 자료 제공</li>\n          <li>강의실 환경(좌석 기울기, 테이블 배치, 쉬는 시간)과 보조 강사의 순회 지원 보강</li>\n        </ul>\n      </div>",
+    "uniquePeopleVar": "LEADER_UNIQUE_PEOPLE",
+    "summaryDate": "2026-10-07"
   },
   {
     "id": "advanced",
